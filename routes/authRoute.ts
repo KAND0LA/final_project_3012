@@ -47,7 +47,7 @@ router.get("/logout", (req, res) => {
 });
 
 // Add the following routes for GitHub authentication
-router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
+router.get('/github', passport.authenticate('github'));
 
 router.get('/github/callback', 
   passport.authenticate('github', { failureRedirect: '/auth/login' }),
