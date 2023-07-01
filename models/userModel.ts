@@ -32,11 +32,9 @@ const userModel = {
   /* FIX ME (types) 😭 */
   findById: (id: number) => {
     const user = database.find((user) => user.id === id);
-    if (user) {
-      return user;
-    }
-    throw new Error(`Couldn't find user with id: ${id}`);
+    return user || null;  // Returns null if user isn't found
   },
+  
 };
 
 export { database, userModel };

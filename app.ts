@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+
 import express from "express";
 declare global {
   namespace Express {
@@ -49,6 +52,10 @@ app.use((req, res, next) => {
   console.log(`Session details are: `);
   console.log((req.session as any).passport);
   next();
+});
+
+app.get('/dashboard', function(req, res) {
+  res.render('dashboard', { user: req.user });
 });
 
 app.use("/", indexRoute);

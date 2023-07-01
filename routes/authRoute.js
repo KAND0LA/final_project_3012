@@ -7,10 +7,10 @@ const express_1 = __importDefault(require("express"));
 const passport_1 = __importDefault(require("passport"));
 const checkAuth_1 = require("../middleware/checkAuth");
 const router = express_1.default.Router();
-router.get("/github", passport_1.default.authenticate("github", { scope: ["user:email"] }));
-router.get("/github/callback", passport_1.default.authenticate("github", { failureRedirect: "/login" }), function (req, res) {
+router.get('/github', passport_1.default.authenticate('github'));
+router.get('/github/callback', passport_1.default.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect("/");
+    res.redirect('/dashboard');
 });
 router.get("/login", checkAuth_1.forwardAuthenticated, (req, res) => {
     // req.session.messages = [];
@@ -33,10 +33,9 @@ router.get("/logout", (req, res) => {
     });
     res.redirect("/auth/login");
 });
-// Add the following routes for GitHub authentication
-router.get('/github', passport_1.default.authenticate('github', { scope: ['user:email'] }));
-router.get('/github/callback', passport_1.default.authenticate('github', { failureRedirect: '/auth/login' }), function (req, res) {
-    // Successful authentication, redirect to dashboard.
+router.get("/github", passport_1.default.authenticate("github", { scope: ["user:email"] }));
+router.get('/github/callback', passport_1.default.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
+    // Successful authentication, redirect home.
     res.redirect('/dashboard');
 });
 exports.default = router;

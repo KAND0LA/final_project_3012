@@ -5,19 +5,16 @@ import session from "express-session";
 
 const router = express.Router();
 
-router.get(
-  "/github",
-  passport.authenticate("github", { scope: ["user:email"] })
-);
+router.get('/github',
+  passport.authenticate('github'));
 
-router.get(
-  "/github/callback",
-  passport.authenticate("github", { failureRedirect: "/login" }),
-  function (req: Request, res: Response) {
+router.get('/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("/");
-  }
-);
+    res.redirect('/dashboard');
+  });
+
 
 router.get("/login", forwardAuthenticated, (req, res) => {
   // req.session.messages = [];
@@ -46,13 +43,13 @@ router.get("/logout", (req, res) => {
   res.redirect("/auth/login");
 });
 
-// Add the following routes for GitHub authentication
-router.get('/github', passport.authenticate('github'));
+router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
+
 
 router.get('/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/auth/login' }),
+  passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect to dashboard.
+    // Successful authentication, redirect home.
     res.redirect('/dashboard');
   });
 

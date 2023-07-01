@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require('dotenv').config();
 const express_1 = __importDefault(require("express"));
 const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
 const express_session_1 = __importDefault(require("express-session"));
@@ -37,6 +38,9 @@ app.use((req, res, next) => {
     console.log(`Session details are: `);
     console.log(req.session.passport);
     next();
+});
+app.get('/dashboard', function (req, res) {
+    res.render('dashboard', { user: req.user });
 });
 app.use("/", indexRoute_1.default);
 app.use("/auth", authRoute_1.default);
